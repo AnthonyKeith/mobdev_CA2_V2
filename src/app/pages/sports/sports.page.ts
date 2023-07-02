@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { NewsService } from 'src/app/services/news.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-sports',
-  templateUrl: './sports.page.html',
-  styleUrls: ['./sports.page.scss'],
+  templateUrl: 'sports.page.html',
+  styleUrls: ['sports.page.scss'],
 })
-export class SportsPage implements OnInit {
 
-  constructor() { }
+export class SportsPage {
+  articles: any[]=[];
 
-  ngOnInit() {
+  constructor(private newsService: NewsService, private navcontroller: NavController) {}
+
+  ionViewDidEnter() {
+    this.newsService.getTopSportsHeadlines().subscribe((data: any) => {
+      this.articles = data.articles;
+    });
   }
-
+  openArticle(articleId: number) {
+    this.navcontroller.navigateForward(`/tabs/sports/${articleId}`);
+  }
 }
