@@ -16,6 +16,7 @@ export class NewsPage {
   ionViewDidEnter() {
     this.newsService.getTopHeadlines().subscribe((data: any) => {
       this.articles = data.articles;
+      console.log(data.articles);
     });
   }
   openArticle(articleId: number) {
